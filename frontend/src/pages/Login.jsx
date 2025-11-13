@@ -3,12 +3,16 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  // Hook de navigation fourni par React Router pour rediriger l'utilisateur
   const navigate = useNavigate();
+
+  // États locaux pour stocker les informations saisies
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
 
+  // Soumission du formulaire d'authentification (connexion ou inscription)
   const handleSubmit = async () => {
     if (!email || !password || (!isLogin && !userName)) {
       alert("Remplis tous les champs !");
@@ -40,13 +44,16 @@ export default function Login() {
     }
   };
 
+  // Bascule entre le mode "Connexion" et "Inscription"
   const toggleMode = () => setIsLogin(!isLogin);
 
+  // Redirection automatique si l'utilisateur est déjà authentifié
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) navigate("/dash");
   }, [navigate]);
 
+  // Interface utilisateur centrée avec TailwindCSS
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-800 to-gray-900 px-4">
       <div className="w-full max-w-md bg-gray-800 rounded-xl shadow-xl p-8 sm:p-10 text-gray-100">
